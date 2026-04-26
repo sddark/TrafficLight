@@ -1,0 +1,3 @@
+- [TLC Integration Test Suite — Project Context](project_tlc_tests.md) — module layout, contract assumptions, test suite location for ARCH-TLC-001
+- [TLC Test Framework Patterns and Conventions](feedback_test_patterns.md) — RPi mock strategy, MockGPIODriver pattern, tick-time conventions, phase duration measurement
+- [User Profile — TLC Project](user_profile.md) — engineer building RPi bench demo; wants contract-first tests, requirement IDs in method names, Windows-runnable
