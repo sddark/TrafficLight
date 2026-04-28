@@ -29,6 +29,11 @@ _gpio_stub.PUD_UP = 22
 _gpio_stub.HIGH = 1
 _gpio_stub.LOW = 0
 
+# Disable event_detected so debounce.py uses software path in tests.
+# On real Pi, RPi.GPIO provides this; in tests, set to None so the
+# try-except in debounce.py catches TypeError and falls back to software.
+_gpio_stub.event_detected = None
+
 _rpi_stub.GPIO = _gpio_stub
 
 sys.modules.setdefault("RPi", _rpi_stub)

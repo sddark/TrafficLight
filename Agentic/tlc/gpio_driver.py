@@ -32,6 +32,9 @@ def gpio_init() -> None:
     Configures LED pins as outputs (all starting LOW) and CRB as an input with
     the internal pull-up resistor enabled.  All LEDs are de-energised before
     the GREEN phase illuminates, satisfying the FR-017 dark-window requirement.
+
+    Sets up hardware debounce on PIN_CRB with bouncetime=50 (FR-019) so that
+    signal transients shorter than 50 ms are automatically rejected by RPi.GPIO.
     """
     # FR-017: all LEDs off (LOW) before GREEN illuminates
     GPIO.setmode(GPIO.BCM)
@@ -39,6 +42,10 @@ def gpio_init() -> None:
     GPIO.setup(PIN_YELLOW, GPIO.OUT, initial=GPIO.LOW)
     GPIO.setup(PIN_GREEN,  GPIO.OUT, initial=GPIO.LOW)
     GPIO.setup(PIN_CRB,    GPIO.IN,  pull_up_down=GPIO.PUD_UP)  # ADR-002: pull-up for active-low
+
+    # FR-019: hardware debounce — bouncetime=50 ms filters transients shorter than 50 ms
+    # GPIO.FALLING means activation (GPIO LOW in active-low circuit)
+    GPIO.add_event_detect(PIN_CRB, GPIO.FALLING, bouncetime=50)
 
 
 def gpio_cleanup() -> None:
