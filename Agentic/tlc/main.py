@@ -74,6 +74,10 @@ def main() -> None:
         print(f"[FATAL] {fault_error}", flush=True)
         sys.exit(1)
 
+    except KeyboardInterrupt:
+        # User pressed Ctrl+C — clean exit
+        print("\n[INFO] Shutdown requested", flush=True)
+
     finally:
         gpio_driver.gpio_cleanup()   # NF-007: safe GPIO release on all exit paths
 
